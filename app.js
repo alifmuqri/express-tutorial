@@ -1,4 +1,5 @@
 const express = require("express");
+const morgan = require("morgan");
 
 //express app
 const app = express();
@@ -8,6 +9,8 @@ app.set("view engine", "ejs");
 
 //listen for requests
 app.listen(3000);
+
+app.use(morgan("dev"));
 
 app.get("/", (req, res) => {
   const blogs = [
@@ -37,6 +40,5 @@ app.get("/blogs/create", (req, res) => {
 
 //404 page
 app.use((req, res) => {
-  res.status(404).sendFile("./views/404.html", { root: __dirname });
   res.status(404).render("404", { title: "404" });
 });
